@@ -4,7 +4,8 @@ import { createStore } from './vanilla.js'
 const bearStore = createStore((set, get) => ({
     bears: 0,
     increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-    removeAllBears: () => set({ bears: 0 }, true)
+    removeAllBears: () => set({ bears: 0 }, true),
+    logBears: () => console.log(get().bears)
 }))
 // log initial state
 console.log('Initial state:', bearStore.getState())
@@ -14,6 +15,9 @@ const unsubscribe = bearStore.subscribe((state, previousState) => console.log('c
 
 // call an action, confirm that the listener is called and the state is updated
 bearStore.getState().increasePopulation()
+
+// log the bears
+bearStore.getState().logBears()
 
 // unsubscribe the listener, call an action, confirm that the listener is not called
 unsubscribe()
